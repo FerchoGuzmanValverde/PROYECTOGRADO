@@ -1,25 +1,15 @@
 import express from "express";
 import bodyParser from 'body-parser'
+import dotenv from "dotenv";
+import RutasAutenticacion from './routes/routes.js'
+
+dotenv.config();
 
 const server = express();
 
-const router = express.Router();
-
-router.get('/api/user', (req, res)=> {res.send("Hola Frenando!");});
-
-router.get('/api/user/:name', (req, res)=> {
-    const { name } = req.params;
-    res.send(`Hola ${name}!`);
-  });  
-
-router.post('/api/user', (req, res)=> {
-    console.log(req.body)
-  const { id } = req.body;
-  res.send(`Hola ${id}!`);
-});  
 
 server.use(bodyParser.json());
-server.use(router); 
+server.use('/api', RutasAutenticacion); 
 
 const port = process.env.PORT || 8000;
 
